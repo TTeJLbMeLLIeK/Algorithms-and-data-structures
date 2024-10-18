@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Algorithms and data structures", "Algorithms and data structures\Algorithms and data structures.pyproj", "{00445EC1-3DC1-4A4F-925C-112A61AC6E1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00445EC1-3DC1-4A4F-925C-112A61AC6E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00445EC1-3DC1-4A4F-925C-112A61AC6E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE07F4A9-8CD6-4EA0-9358-7EA89092C7CB}
+	EndGlobalSection
+EndGlobal
