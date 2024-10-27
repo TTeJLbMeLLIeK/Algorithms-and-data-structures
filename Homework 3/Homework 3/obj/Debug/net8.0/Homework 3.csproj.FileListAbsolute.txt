@@ -1,0 +1,14 @@
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\bin\Debug\net8.0\Homework 3.exe
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\bin\Debug\net8.0\Homework 3.deps.json
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\bin\Debug\net8.0\Homework 3.runtimeconfig.json
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\bin\Debug\net8.0\Homework 3.dll
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\bin\Debug\net8.0\Homework 3.pdb
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\Homework 3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\Homework 3.AssemblyInfoInputs.cache
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\Homework 3.AssemblyInfo.cs
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\Homework 3.csproj.CoreCompileInputs.cache
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\Homework 3.dll
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\refint\Homework 3.dll
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\Homework 3.pdb
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\Homework 3.genruntimeconfig.cache
+C:\Users\artem\OneDrive\Рабочий стол\Homework 3\Homework 3\obj\Debug\net8.0\ref\Homework 3.dll
