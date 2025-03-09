@@ -1,127 +1,120 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Collections.Generic;
 
-// Интерфейс для генераторов последовательностей интервалов
-interface ISequenceGenerator
+namespace Lr1
 {
-    int[] GenerateGaps(int size);
-}
-
-// Последовательность интервалов по методу Шелла ( / 2)
-class ShellSequence : ISequenceGenerator
-{
-    public int[] GenerateGaps(int size)
+    class Program
     {
-        var gaps = new List<int>();
-        for (int gap = size / 2; gap > 0; gap /= 2)
-            gaps.Add(gap);
-        return gaps.ToArray();
-    }
-}
-
-// Последовательность интервалов по методу Хиббарда (2^k - 1)
-class HibbardSequence : ISequenceGenerator
-{
-    public int[] GenerateGaps(int size)
-    {
-        var gaps = new List<int>();
-        int k = 1;
-        while ((1 << k) - 1 < size)
+        static void Main()
         {
-            gaps.Insert(0, (1 << k) - 1);
-            k++;
-        }
-        return gaps.ToArray();
-    }
-}
-
-// Последовательность интервалов по методу Кнута (3^k - 1 / 2)
-class KnuthSequence : ISequenceGenerator
-{
-    public int[] GenerateGaps(int size)
-    {
-        var gaps = new List<int>();
-        int h = 1;
-        while (h < size)
-        {
-            gaps.Insert(0, h);
-            h = h * 3 + 1;
-        }
-        return gaps.ToArray();
-    }
-}
-
-// Класс сортировки Шелла, использующий заданную интервальную последовательность
-class ShellSorter
-{
-    private readonly int[] _array;
-    private readonly ISequenceGenerator _sequenceGenerator;
-
-    public ShellSorter(int size, ISequenceGenerator sequenceGenerator)
-    {
-        _array = new int[size];
-        _sequenceGenerator = sequenceGenerator;
-        FillArrayWithRandomValues();
-    }
-
-    // Заполняем массив случайными значениями
-    private void FillArrayWithRandomValues()
-    {
-        Random rand = new Random();
-        for (int i = 0; i < _array.Length; i++)
-            _array[i] = rand.Next(1, 1000);
-    }
-
-    // Основной алгоритм сортировки Шелла
-    public void Sort()
-    {
-        int[] gaps = _sequenceGenerator.GenerateGaps(_array.Length);
-        foreach (int gap in gaps)
-        {
-            for (int i = gap; i < _array.Length; i++)
+            int[] sizes = { 1000, 5000, 10000, 50000 };
+            foreach (int size in sizes)
             {
-                int temp = _array[i];
-                int j = i;
-                while (j >= gap && _array[j - gap] > temp)
-                {
-                    _array[j] = _array[j - gap];
-                    j -= gap;
-                }
-                _array[j] = temp;
+                Console.WriteLine($"Анализ сортировки для массива размера {size}:");
+                SortableArray shellSortArray = new SortableArray(size, 1, 10000);
+
+                Console.WriteLine("Использование последовательности Шелла:");
+                shellSortArray.ShellSort(SortableArray.ShellSequence);
+
+                Console.WriteLine("Использование последовательности Хиббарда:");
+                shellSortArray.ShellSort(SortableArray.HibbardSequence);
+
+                Console.WriteLine("Использование последовательности Кнута:");
+                shellSortArray.ShellSort(SortableArray.KnuthSequence);
+
+                Console.WriteLine(new string('-', 70));
             }
         }
     }
 
-    // Измерение времени выполнения сортировки
-    public long MeasureSortTime()
+    public class SortableArray
     {
-        Stopwatch sw = Stopwatch.StartNew();
-        Sort();
-        sw.Stop();
-        return sw.ElapsedMilliseconds;
-    }
-}
+        private int[] _array;
+        private int[] _originalArray;
+        private Random _random = new Random();
 
-// Основная программа
-class Program
-{
-    public static void Main()
-    {
-        int size = 10000; // Размер массива
-        var sequences = new Dictionary<string, ISequenceGenerator>
+        public SortableArray(int size, int minValue, int maxValue)
         {
-            { "Shell", new ShellSequence() },
-            { "Hibbard", new HibbardSequence() },
-            { "Knuth", new KnuthSequence() }
-        };
+            _originalArray = GenerateRandomArray(size, minValue, maxValue);
+            _array = new int[size];
+        }
 
-        // Запускаем сортировку для каждой интервальной последовательности
-        foreach (var seq in sequences)
+        private int[] GenerateRandomArray(int size, int minValue, int maxValue)
         {
-            var sorter = new ShellSorter(size, seq.Value);
-            long elapsedTime = sorter.MeasureSortTime();
-            Console.WriteLine($"{seq.Key} sequence: {elapsedTime} ms");
+            int[] array = new int[size];
+            for (int i = 0; i < size; i++)
+            {
+                array[i] = _random.Next(minValue, maxValue + 1);
+            }
+            return array;
+        }
+
+        public void ShellSort(Func<int, int[]> sequenceGenerator)
+        {
+            Array.Copy(_originalArray, _array, _originalArray.Length);
+            int comparisons = 0, swaps = 0;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            int[] gaps = sequenceGenerator(_array.Length);
+            foreach (int gap in gaps)
+            {
+                for (int i = gap; i < _array.Length; i++)
+                {
+                    int temp = _array[i];
+                    int j = i;
+                    while (j >= gap && _array[j - gap] > temp)
+                    {
+                        _array[j] = _array[j - gap];
+                        j -= gap;
+                        comparisons++;
+                        swaps++;
+                    }
+                    _array[j] = temp;
+                }
+            }
+
+            stopwatch.Stop();
+            Console.WriteLine($"Время выполнения: {stopwatch.ElapsedMilliseconds} мс, Сравнений: {comparisons}, Перестановок: {swaps}\n");
+        }
+
+        public static int[] ShellSequence(int size)
+        {
+            var sequence = new System.Collections.Generic.List<int>();
+            for (int gap = size / 2; gap > 0; gap /= 2)
+            {
+                sequence.Add(gap);
+            }
+            return sequence.ToArray();
+        }
+
+        public static int[] HibbardSequence(int size)
+        {
+            var sequence = new System.Collections.Generic.List<int>();
+            int k = 1, gap;
+            while ((gap = (int)Math.Pow(2, k) - 1) < size)
+            {
+                sequence.Add(gap);
+                k++;
+            }
+            sequence.Reverse();
+            return sequence.ToArray();
+        }
+
+        public static int[] KnuthSequence(int size)
+        {
+            var sequence = new System.Collections.Generic.List<int>();
+            int h = 1;
+            while (h < size)
+            {
+                sequence.Add(h);
+                h = 3 * h + 1;
+            }
+            while (sequence.Count > 0 && sequence[sequence.Count - 1] >= size)
+            {
+                sequence.RemoveAt(sequence.Count - 1);
+            }
+            sequence.Reverse();
+            return sequence.ToArray();
         }
     }
 }
