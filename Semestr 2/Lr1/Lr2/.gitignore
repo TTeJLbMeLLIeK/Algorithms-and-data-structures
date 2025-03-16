@@ -1,0 +1,12 @@
+bin/
+obj/
+
+*.exe
+*.dll
+*.pdb
+*.json
+*.cache
+*.nuget
+
+!Program.cs
+!README.md
